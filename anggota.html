@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Anggota Tim | XI RPL Kelompok 8</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #102a43;
+            --navy-dark: #071b2f;
+            --slate: #486581;
+            --ink: #050505;
+            --muted: #627d98;
+            --line: #d9e2ec;
+            --paper: #ffffff;
+            --wash: #f5f8fb;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            color: var(--ink);
+            background: var(--paper);
+            font-family: Inter, sans-serif;
+            line-height: 1.6;
+        }
+
+        body::before {
+            position: fixed;
+            z-index: -1;
+            top: 0;
+            right: 10%;
+            width: 1px;
+            height: 100vh;
+            background: var(--line);
+            content: "";
+            opacity: 0.7;
+        }
+
+        .site-header {
+            background: var(--navy);
+            color: var(--paper);
+            border-bottom: 1px solid var(--ink);
+        }
+
+        .site-header::after {
+            display: block;
+            width: min(1120px, calc(100% - 48px));
+            height: 3px;
+            margin: 0 auto;
+            background: var(--paper);
+            content: "";
+        }
+
+        .header-inner, main {
+            width: min(1120px, calc(100% - 48px));
+            margin: 0 auto;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            min-height: 72px;
+        }
+
+        .brand {
+            color: inherit;
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.9rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .header-meta {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #d9e2ec;
+            font-size: 0.78rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        .header-meta::before {
+            width: 7px;
+            height: 7px;
+            border: 1px solid var(--paper);
+            background: var(--paper);
+            content: "";
+        }
+
+        .intro {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr) 320px;
+            gap: 56px;
+            align-items: end;
+            min-height: 390px;
+            padding: 92px 0 76px;
+            border-bottom: 1px solid var(--ink);
+            animation: reveal 600ms ease both;
+        }
+
+        .eyebrow {
+            margin: 0 0 20px;
+            color: var(--slate);
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
+
+        h1, h2, p { margin-top: 0; }
+
+        h1 {
+            max-width: 680px;
+            margin-bottom: 22px;
+            color: var(--navy-dark);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: clamp(2.6rem, 6vw, 5.1rem);
+            line-height: 1.02;
+            letter-spacing: -0.04em;
+        }
+
+        h1::after {
+            display: block;
+            width: 72px;
+            height: 6px;
+            margin-top: 28px;
+            background: var(--navy);
+            content: "";
+        }
+
+        .intro-copy {
+            max-width: 300px;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 0.95rem;
+        }
+
+        .intro-panel {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: 190px;
+            background: var(--navy);
+            color: var(--paper);
+            border: 1px solid var(--ink);
+            box-shadow: 10px 10px 0 var(--line);
+            transition: transform 180ms ease, box-shadow 180ms ease;
+        }
+
+        .intro-panel:hover {
+            box-shadow: 14px 14px 0 var(--line);
+            transform: translate(-4px, -4px);
+        }
+
+        .panel-label {
+            grid-column: 1 / -1;
+            padding: 18px 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.35);
+            color: #d9e2ec;
+            font-size: 0.7rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        .panel-stat {
+            display: flex;
+            flex-direction: column;
+            justify-content: end;
+            gap: 4px;
+            padding: 20px;
+        }
+
+        .panel-stat + .panel-stat { border-left: 1px solid rgba(255, 255, 255, 0.35); }
+
+        .panel-stat strong {
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 2.3rem;
+            line-height: 1;
+        }
+
+        .panel-stat span { color: #d9e2ec; font-size: 0.72rem; }
+
+        .members-section { padding: 38px 0 96px; }
+
+        .section-heading {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 24px;
+            margin-bottom: 22px;
+            padding-bottom: 14px;
+            border-bottom: 1px solid var(--line);
+        }
+
+        h2 {
+            margin-bottom: 0;
+            color: var(--navy-dark);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 1.15rem;
+        }
+
+        .count { color: var(--muted); font-size: 0.8rem; }
+
+        .member-list {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1px;
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            background: var(--ink);
+            border: 1px solid var(--ink);
+            counter-reset: member;
+        }
+
+        .member-card {
+            position: relative;
+            display: grid;
+            grid-template-columns: 48px 1fr;
+            gap: 20px;
+            min-height: 208px;
+            padding: 28px;
+            background: var(--paper);
+            overflow: hidden;
+            transition: background-color 160ms ease, transform 160ms ease;
+            animation: reveal 600ms ease both;
+        }
+
+        .member-card:nth-child(2) { animation-delay: 80ms; }
+        .member-card:nth-child(3) { animation-delay: 160ms; }
+        .member-card:nth-child(4) { animation-delay: 240ms; }
+
+        .member-card::before {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: var(--navy);
+            content: "";
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 160ms ease;
+        }
+
+        .member-card:hover {
+            background: #edf3f8;
+            transform: translateY(-3px);
+        }
+
+        .member-card:hover::before { transform: scaleX(1); }
+
+        .member-number {
+            display: grid;
+            place-items: center;
+            width: 38px;
+            height: 38px;
+            border: 1px solid var(--slate);
+            border-radius: 50%;
+            color: var(--slate);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            transition: background-color 160ms ease, color 160ms ease;
+        }
+
+        .member-card:hover .member-number {
+            background: var(--navy);
+            color: var(--paper);
+        }
+
+        .member-card h3 {
+            margin: 0 0 7px;
+            color: var(--navy-dark);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 1.22rem;
+            line-height: 1.3;
+        }
+
+        .member-card > div {
+            padding-left: 18px;
+            border-left: 1px solid var(--line);
+            transition: border-color 160ms ease;
+        }
+
+        .member-card:hover > div { border-color: var(--navy); }
+
+        .member-card h3::after {
+            display: block;
+            width: 24px;
+            height: 1px;
+            margin-top: 12px;
+            background: var(--line);
+            content: "";
+            transition: width 160ms ease, background-color 160ms ease;
+        }
+
+        .member-card:hover h3::after {
+            width: 52px;
+            background: var(--navy);
+        }
+
+        .role {
+            display: inline-block;
+            margin-bottom: 25px;
+            color: var(--navy);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        .member-card p:last-child {
+            max-width: 380px;
+            margin-bottom: 0;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .card-mark {
+            position: absolute;
+            right: 26px;
+            bottom: 22px;
+            color: var(--line);
+            font-family: "Plus Jakarta Sans", sans-serif;
+            font-size: 1.8rem;
+            line-height: 1;
+            transition: color 160ms ease, transform 160ms ease;
+        }
+
+        .member-card:hover .card-mark {
+            color: var(--navy);
+            transform: translate(3px, -3px);
+        }
+
+        @keyframes reveal {
+            from { opacity: 0; transform: translateY(12px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        footer {
+            padding: 22px 0;
+            border-top: 1px solid var(--line);
+            color: var(--muted);
+            font-size: 0.78rem;
+        }
+
+        footer span { color: var(--slate); }
+
+        @media (max-width: 700px) {
+            .header-inner, main { width: min(100% - 32px, 1120px); }
+            .site-header::after { width: calc(100% - 32px); }
+            .header-inner { min-height: 64px; }
+            .header-meta { font-size: 0.68rem; }
+            .intro { display: block; min-height: 0; padding: 64px 0 52px; }
+            h1 { font-size: clamp(2.6rem, 14vw, 4rem); }
+            .intro-copy { margin-top: 28px; }
+            .intro-panel { margin-top: 44px; box-shadow: 6px 6px 0 var(--line); }
+            .members-section { padding-bottom: 64px; }
+            .member-list { grid-template-columns: 1fr; }
+            .member-card { min-height: 0; padding: 24px 20px; }
+            .card-mark { right: 20px; bottom: 18px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="header-inner">
+            <a class="brand" href="anggota.html">XI RPL / Kelompok 08</a>
+            <span class="header-meta">Profil tim 2025/2026</span>
+        </div>
+    </header>
+    <main>
+        <section class="intro" aria-labelledby="page-title">
+            <div>
+                <p class="eyebrow">Tentang kami</p>
+                <h1 id="page-title">Orang-orang di balik proyek ini.</h1>
+            </div>
+            <div>
+                <p class="intro-copy">Satu tim dengan peran yang berbeda, bekerja bersama untuk membangun profil XI RPL Kelompok 8.</p>
+                <div class="intro-panel" aria-label="Ringkasan tim">
+                    <span class="panel-label">Team index / 08</span>
+                    <div class="panel-stat"><strong>04</strong><span>Anggota</span></div>
+                    <div class="panel-stat"><strong>04</strong><span>Peran utama</span></div>
+                </div>
+            </div>
+        </section>
+        <section class="members-section" aria-labelledby="members-title">
+            <div class="section-heading">
+                <h2 id="members-title">Daftar anggota</h2>
+                <span class="count">04 anggota</span>
+            </div>
+            <ol class="member-list">
+                <li class="member-card">
+                    <span class="member-number">01</span>
+                    <div><h3>Muhamad Dehan Roziku</h3><span class="role">Project Manager</span><p>Mengelola repository, meninjau kode, dan melakukan merge.</p></div><span class="card-mark" aria-hidden="true">↗</span>
+                </li>
+                <li class="member-card">
+                    <span class="member-number">02</span>
+                    <div><h3>Mohammad Rafly Taufik Putra</h3><span class="role">Developer Profil</span><p>Membuat halaman profil kelas dan sekolah.</p></div><span class="card-mark" aria-hidden="true">↗</span>
+                </li>
+                <li class="member-card">
+                    <span class="member-number">03</span>
+                    <div><h3>Regina Attala Riswana</h3><span class="role">Developer Anggota</span><p>Membuat halaman daftar anggota dan peran tim.</p></div><span class="card-mark" aria-hidden="true">↗</span>
+                </li>
+                <li class="member-card">
+                    <span class="member-number">04</span>
+                    <div><h3>Andri Subagja Nugraha</h3><span class="role">Developer Kontak</span><p>Membuat halaman kontak dan media sosial.</p></div><span class="card-mark" aria-hidden="true">↗</span>
+                </li>
+            </ol>
+        </section>
+    </main>
+    <footer><div class="header-inner">XI RPL Kelompok 8 <span>Daftar Anggota Tim</span></div></footer>
+</body>
+</html>
