@@ -14,76 +14,110 @@ Website ini merupakan proyek pembelajaran kolaborasi Git dan GitHub.
 **Pertanyaan:** Apa arti hasil `git status`?
 
 **Jawaban:**
-Perintah `git status` digunakan untuk melihat kondisi atau status terkini dari working directory dan staging area. Setelah repository baru di-clone, hasilnya biasanya menampilkan: On branch `main`: Menunjukkan bahwa kita sedang berada di branch `main`. Your branch is up to date with 'origin/main': Menandakan bahwa kode di lokal komputer kita sudah sama/sinkron dengan kode yang ada di GitHub. nothing to commit, working tree clean: Menunjukkan belum ada perubahan file baru atau modifikasi yang perlu di-commit.
 
-## J. Challenge 3: Membuat Branch
+Perintah `git status` digunakan untuk menampilkan kondisi working directory dan staging area saat ini. Perintah ini memberikan informasi mengenai:
 
-**Pertanyaan Analisis:** Mengapa setiap developer tidak langsung bekerja pada main?
+- Branch yang sedang aktif.
+- Status sinkronisasi dengan repositori remote di GitHub.
+- Berkas yang mengalami perubahan tetapi belum masuk ke staging area (`untracked` atau `unstaged`).
+- Berkas yang sudah masuk ke staging area (`staged`) dan siap di-commit.
 
-**Jawaban:** Agar kode utama `main` tetap stabil, aman, dan siap rilis. Dengan bekerja di branch terpisah, setiap developer dapat mengembangkan dan menguji fiturnya tanpa berisiko merusak sistem utama atau mengganggu pekerjaan anggota tim lainnya.
+## II. PERTANYAAN ANALISIS CHALLENGE 3 (MEMBUAT BRANCH)
 
-## N. Challenge 5: Commit
+**Pertanyaan:** Mengapa setiap developer tidak langsung bekerja pada `main`?
 
-**Pertanyaan:** Apa perbedaan pesan commit git commit -m "update" dan git commit -m "Menambahkan halaman profil kelas"? Mana yang lebih baik?
+**Jawaban:**
 
-**Jawaban:** Pesan "update" terlalu umum dan tidak memberikan penjelasan spesifik mengenai perubahan yang dibuat. Pesan "Menambahkan halaman profil kelas" rinci, informatif, dan jelas. Mana yang lebih baik: Pesan kedua jauh lebih baik karena memudahkan tim melacak riwayat perubahan kode di masa mendatang.
+- **Menjaga stabilitas kode utama (`main`):** Branch `main` difungsikan sebagai versi kode stabil yang siap digunakan. Bekerja langsung di `main` berisiko merusak sistem jika terdapat error.
+- **Isolasi fitur:** Pembuatan branch terpisah memungkinkan pengerjaan fitur baru dilakukan secara independen tanpa mengganggu anggota tim lain.
+- **Memudahkan code review:** Perubahan dapat diperiksa dan diuji terlebih dahulu melalui Pull Request sebelum digabungkan ke kode utama.
+- **Pengelolaan perubahan:** Jika suatu fitur dibatalkan, branch fitur tersebut cukup dihapus tanpa merusak kode di `main`.
 
-## U. Pertanyaan Analisis (Sinkronisasi)
+## III. PERTANYAAN CHALLENGE 5 (COMMIT)
 
-1. Apa fungsi git pull?
+**Pertanyaan:** Apa perbedaan pesan commit berikut, dan mana yang lebih baik?
 
-**Jawaban:** Memperbarui kode di repository lokal dengan mengambil dan menggabungkan (merge) perubahan/commit terbaru dari repository remote di GitHub.
+```bash
+git commit -m "update"
+git commit -m "Menambahkan halaman profil kelas"
+```
 
-2. Apa yang terjadi jika programmer tidak melakukan git pull?
+**Jawaban:**
 
-**Jawaban:** Kode di komputer lokal akan tertinggal (outdated), sehingga berisiko tinggi menimbulkan conflict saat hendak melakukan push atau penggabungan kode nantinya.
+Pesan `git commit -m "update"` terlalu umum dan tidak menjelaskan perubahan yang dilakukan. Sebaliknya, pesan `git commit -m "Menambahkan halaman profil kelas"` menjelaskan aksi dan hasil perubahan secara spesifik.
 
-3. Mengapa main harus dijaga agar tetap stabil?
+**Pilihan terbaik:** `git commit -m "Menambahkan halaman profil kelas"` karena memudahkan pelacakan riwayat pengembangan dan proses code review.
 
-**Jawaban:** Karena branch `main` merupakan cerminan versi produk utama yang siap rilis (production). Jika main rusak, seluruh tim akan terhambat dan aplikasi tidak bisa digunakan.
+## IV. PERTANYAAN ANALISIS U (SINKRONISASI & GIT PULL)
 
-## X. Pertanyaan Conflict
+**Pertanyaan:**
+
+1. Apa fungsi `git pull`?
+2. Apa yang terjadi jika programmer tidak melakukan `git pull`?
+3. Mengapa `main` harus dijaga agar tetap stabil?
+
+**Jawaban:**
+
+- **Fungsi `git pull`:** Mengambil perubahan terbaru dari repositori remote (GitHub) dan menggabungkannya ke branch lokal yang aktif.
+- **Dampak tanpa `git pull`:** Kode lokal menjadi tertinggal (`outdated`), berisiko mengalami merge conflict saat melakukan push, dan tidak terintegrasi dengan pekerjaan tim lain.
+- **Alasan branch `main` harus stabil:** `main` merupakan acuan utama seluruh tim dan mencerminkan versi aplikasi yang siap dirilis.
+
+## V. PERTANYAAN X (KONFLIK KODE / CONFLICT)
+
+**Pertanyaan:**
 
 1. Mengapa conflict terjadi?
-
-**Jawaban:** Karena dua atau lebih programmer mengubah baris kode yang sama pada file yang sama dengan isi yang berbeda secara bersamaan.
-
 2. Apakah conflict berarti Git rusak?
-
-**Jawaban:** Tidak. Conflict adalah fitur keamanan Git untuk mencegah kode milik seorang programmer tertimpa (overwrite) secara tidak sengaja.
-
 3. Siapa yang harus menentukan versi kode yang benar?
+4. Mengapa komunikasi antarprogrammer penting?
 
-**Jawaban:** Developer yang mengalami conflict bersama dengan developer penyusun perubahan terkait, atau mendiskusikannya bersama Project Manager / Lead Developer.
+**Jawaban:**
 
-4. Mengapa komunikasi antar programmer penting?
+- **Penyebab konflik:** Terjadi ketika dua atau lebih developer mengubah baris kode yang sama pada file yang sama dengan isi berbeda, lalu mencoba menggabungkannya.
+- **Status Git:** Git tidak rusak. Konflik menandakan Git bekerja secara aman dengan menyerahkan keputusan penimpaan kode kepada developer.
+- **Pihak penentu:** Developer yang terlibat dalam perubahan tersebut melalui diskusi bersama Project Manager atau Lead Developer.
+- **Pentingnya komunikasi:** Mencegah bentrokan pengerjaan fitur, mempercepat penyelesaian konflik, dan menjaga konsistensi kode.
 
-**Jawaban:** Untuk menyelaraskan pembagian tugas, menghindari tumpang tindih pengerjaan file yang sama, serta mempermudah penyelesaian conflict dan code review.
+## VI. REFLEKSI INDIVIDU (BAGIAN AC)
 
-## 2. AC. REFLEKSI INDIVIDU
+**Apa perbedaan bekerja sendiri dengan bekerja menggunakan Git dan GitHub?**
 
-**Apa perbedaan bekerja sendiri** dengan bekerja menggunakan Git dan GitHub? Bekerja sendiri membuat kita bebas mengubah file tanpa aturan, tetapi berisiko kehilangan histori perbaikan. Bekerja menggunakan Git dan GitHub membutuhkan alur kerja terstruktur (branching, PR, review), tetapi kolaborasi tim jadi jauh lebih aman, rapi, dan mudah dipantau bersama.
+**Jawab:** Bekerja sendiri tidak memerlukan koordinasi penggabungan kode, sedangkan bekerja dengan Git dan GitHub membutuhkan alur pembagian branch, code review, dan integrasi kode bersama tim.
 
-**Apa manfaat branch?** Mengisolasi pengerjaan fitur baru agar tidak langsung mengganggu atau merusak kode utama `main` yang sudah stabil.
+**Apa manfaat branch?**
 
-**Mengapa Pull Request diperlukan?** Sebagai media resmi untuk mengajukan penggabungan kode dari branch fitur ke main, sekaligus tempat diskusi dan pengecekan kualitas kode sebelum di-merge.
+**Jawab:** Memungkinkan pengerjaan fitur baru atau perbaikan kode dilakukan secara terpisah tanpa mengganggu branch utama (`main`).
 
-**Apa manfaat Code Review?** Membantu menemukan bug atau kesalahan penulisan lebih awal, serta menjaga standar kualitas kode seluruh tim.
+**Mengapa Pull Request diperlukan?**
 
-**Error apa yang paling sulit kalian selesaikan?** Menangani merge conflict pada file README.md saat ada perubahan di baris yang sama.
+**Jawab:** Untuk menyediakan ruang pemeriksaan dan diskusi kode sebelum perubahan digabungkan ke branch utama.
 
-**Bagaimana kalian menemukan solusinya?** Membaca tanda penunjuk conflict (<<<<<<<, =======, >>>>>>>), berdiskusi dengan rekan tim untuk memilih teks yang tepat, menghapus tanda conflict, lalu commit dan push ulang.
+**Apa manfaat Code Review?**
 
-**Apa kontribusi terbesar kalian dalam kelompok?** Mengerjakan fitur bagian saya sesuai aturan, membantu melakukan review pada Pull Request teman, dan aktif berdiskusi saat menyelesaikan conflict.
+**Jawab:** Membantu menemukan bug lebih awal, menjaga standar penulisan kode, dan memastikan fitur sesuai dengan spesifikasi proyek.
 
-**Jika menjadi programmer profesional, kebiasaan apa dari kegiatan ini yang akan kalian pertahankan?** Selalu bekerja melalui branch terpisah, menulis pesan commit yang informatif, melakukan code review dengan teliti, dan rutin melakukan git pull sebelum bekerja.
+**Error apa yang paling sulit kalian selesaikan?**
 
-## 3. AE. REFLEKSI AKHIR
+**Jawab:** Merge conflict saat penggabungan branch atau kendala push rejected karena repositori lokal belum di-pull.
 
-**Sebelum belajar GitHub, saya berpikir bahwa...** mengerjakan proyek kelompok dilakukan dengan saling berkirim file secara manual (lewat flashdisk atau aplikasi pesan) yang rawan tertimpa dan membingungkan.
+**Bagaimana kalian menemukan solusinya?**
 
-**Setelah melakukan kolaborasi dengan GitHub, saya memahami bahwa...** kolaborasi pengembangan perangkat lunak membutuhkan alur terstruktur (Git flow) seperti branching, push, Pull Request, dan code review agar proyek tim tetap rapi dan terintegrasi.
+**Jawab:** Membaca pesan error, berdiskusi dengan tim, memeriksa dokumentasi, dan menyelesaikan konflik pada file terkait.
 
-**Kesalahan/error yang saya alami mengajarkan saya bahwa...** error adalah bagian normal dari proses belajar yang memberikan petunjuk untuk diperbaiki, bukan tanda kegagalan.
+**Apa kontribusi terbesar kalian dalam kelompok?**
 
-**Jika saya bekerja sebagai programmer dalam sebuah tim, saya akan...** mengutamakan komunikasi yang jelas, mematuhi alur Git flow, rutin mensinkronkan kode (git pull), dan terbuka terhadap masukan saat code review.
+**Jawab:** Membuat dan mengintegrasikan file fitur sesuai tugas, melakukan review pada Pull Request tim, serta membantu penyelesaian konflik kode.
+
+**Jika menjadi programmer profesional, kebiasaan apa dari kegiatan ini yang akan kalian pertahankan?**
+
+**Jawab:** Selalu membuat branch baru untuk setiap fitur, menulis pesan commit yang informatif, serta melakukan code review sebelum penggabungan kode.
+
+## VII. REFLEKSI AKHIR (BAGIAN AE)
+
+**Sebelum belajar GitHub, saya berpikir bahwa...** pengerjaan proyek tim dilakukan dengan menggabungkan file secara manual yang berisiko tertimpa atau hilang.
+
+**Setelah melakukan kolaborasi dengan GitHub, saya memahami bahwa...** kolaborasi terstruktur menggunakan branch, Pull Request, dan Merge sangat penting untuk menjaga keutuhan kode proyek.
+
+**Kesalahan/error yang saya alami mengajarkan saya bahwa...** error merupakan informasi petunjuk yang membantu memahami alur kerja dan penanganan masalah pada sistem.
+
+**Jika saya bekerja sebagai programmer dalam sebuah tim, saya akan...** disiplin mengikuti alur kerja Git, berkomunikasi aktif dengan tim, dan selalu memastikan stabilitas kode utama.
