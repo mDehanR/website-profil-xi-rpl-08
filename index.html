@@ -549,19 +549,36 @@
         }
 
         const geometricObjects = [];
+        const introDirections = [new THREE.Vector3(-4.5, 1.4, 2.8), new THREE.Vector3(4.6, -2.3, 2.2), new THREE.Vector3(0.8, 4.5, 3.6)];
+        const addGeometricObject = (object, speed, drift, phase, index) => {
+          const targetPosition = object.position.clone();
+          const direction = introDirections[index].clone().multiplyScalar(0.55 + Math.random() * 0.7);
+          object.position.copy(targetPosition).add(direction);
+          object.scale.setScalar(0.05);
+          object.rotation.set(Math.random() * 2, Math.random() * 2, Math.random() * 2);
+          geometricObjects.push({
+            object,
+            speed,
+            drift,
+            phase,
+            targetPosition,
+            startRotation: object.rotation.clone(),
+            delay: 0.15 + Math.random() * 0.8,
+            duration: 1.05 + Math.random() * 0.65,
+          });
+          group.add(object);
+        };
         const cyanWire = new THREE.MeshBasicMaterial({ color: 0x00f3ff, wireframe: true, transparent: true, opacity: 0.22 });
         const magentaWire = new THREE.MeshBasicMaterial({ color: 0xff35c9, wireframe: true, transparent: true, opacity: 0.2 });
         const purpleWire = new THREE.MeshBasicMaterial({ color: 0x7928ca, wireframe: true, transparent: true, opacity: 0.24 });
 
         const icosahedron = new THREE.Mesh(new THREE.IcosahedronGeometry(1.05, 1), cyanWire);
         icosahedron.position.set(-4.2, 1.35, -1.2);
-        geometricObjects.push({ object: icosahedron, speed: 0.28, drift: 0.18, phase: 0.4 });
-        group.add(icosahedron);
+        addGeometricObject(icosahedron, 0.28, 0.18, 0.4, 0);
 
         const octahedron = new THREE.Mesh(new THREE.OctahedronGeometry(0.95, 1), magentaWire);
         octahedron.position.set(4.1, -0.75, -0.8);
-        geometricObjects.push({ object: octahedron, speed: -0.34, drift: 0.22, phase: 2.1 });
-        group.add(octahedron);
+        addGeometricObject(octahedron, -0.34, 0.22, 2.1, 1);
 
         const orbit = new THREE.Group();
         orbit.position.set(3.9, 1.7, -1.6);
@@ -571,8 +588,7 @@
         orbitRingAccent.rotation.x = Math.PI / 2.8;
         orbitRingAccent.rotation.y = Math.PI / 3;
         orbit.add(orbitRing, orbitRingAccent);
-        geometricObjects.push({ object: orbit, speed: 0.22, drift: 0.12, phase: 4.4 });
-        group.add(orbit);
+        addGeometricObject(orbit, 0.22, 0.12, 4.4, 2);
 
         const mouse = { x: 0, y: 0 };
         addEventListener("pointermove", (event) => {
@@ -593,7 +609,18 @@
           links.forEach((line, index) => {
             line.rotation.z = Math.sin(time * 0.2 + index) * 0.015;
           });
-          geometricObjects.forEach(({ object, speed, drift, phase }) => {
+          geometricObjects.forEach(({ object, speed, drift, phase, targetPosition, startRotation, delay, duration }) => {
+            const entranceProgress = Math.min(1, Math.max(0, (time - delay) / duration));
+            const easedProgress = 1 - Math.pow(1 - entranceProgress, 3);
+            if (entranceProgress < 1) {
+              object.position.lerpVectors(object.position, targetPosition, easedProgress * 0.08);
+              object.scale.setScalar(0.05 + easedProgress * 0.95);
+              object.rotation.x = startRotation.x + easedProgress * 0.8;
+              object.rotation.y = startRotation.y + easedProgress * 1.1;
+            } else {
+              object.position.lerp(targetPosition, 0.02);
+              object.scale.setScalar(1);
+            }
             object.rotation.x += speed * 0.01;
             object.rotation.y += speed * 0.014;
             object.position.y += Math.sin(time * drift + phase) * 0.0008;
