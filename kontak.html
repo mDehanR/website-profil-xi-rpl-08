@@ -1,285 +1,394 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kontak</title>
     <style>
-        :root {
-            --primary: #1d4ed8;
-            --primary-dark: #1e3a8a;
-            --primary-soft: #dbeafe;
-            --pink: #e11d48;
-            --dark: #0f172a;
-            --muted: #475569;
-            --bg1: #f0f7ff;
-            --bg2: #f8fafc;
-            --white: #ffffff;
-            --line: rgba(148, 163, 184, 0.22);
-            --shadow: rgba(15, 23, 42, 0.12);
-        }
+      :root {
+        --primary: #1d4ed8;
+        --primary-dark: #1e3a8a;
+        --primary-soft: #dbeafe;
+        --pink: #e11d48;
+        --dark: #0f172a;
+        --muted: #475569;
+        --bg1: #f0f7ff;
+        --bg2: #f8fafc;
+        --white: #ffffff;
+        --line: rgba(148, 163, 184, 0.22);
+        --shadow: rgba(15, 23, 42, 0.12);
+      }
 
-        * {
-            box-sizing: border-box;
-        }
+      * {
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: "Segoe UI", sans-serif;
-            margin: 0;
-            background:
-                radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 26%),
-                radial-gradient(circle at bottom right, rgba(225, 29, 72, 0.08), transparent 28%),
-                linear-gradient(135deg, var(--bg1), var(--bg2) 48%, #eef2ff);
-            color: var(--dark);
+      .shared-nav {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        display: flex;
+        align-items: center;
+        min-height: 76px;
+        margin: 16px auto 0;
+        padding: 0 18px;
+        width: min(1160px, calc(100% - 48px));
+        border: 1px solid rgba(0, 243, 255, 0.16);
+        border-radius: 9px;
+        color: #f3f8ff;
+        background: rgba(5, 8, 18, 0.82);
+        box-shadow:
+          0 16px 50px rgba(0, 0, 0, 0.22),
+          inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        backdrop-filter: blur(18px);
+      }
+      .shared-nav::after {
+        position: absolute;
+        right: 26px;
+        bottom: -1px;
+        left: 26px;
+        height: 1px;
+        background: linear-gradient(90deg, transparent, #00f3ff, #ff35c9, transparent);
+        box-shadow: 0 0 12px #00f3ff;
+        content: "";
+      }
+      .shared-brand {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        color: #f3f8ff;
+        font:
+          700 0.87rem "Orbitron",
+          sans-serif;
+        letter-spacing: 0.12em;
+        white-space: nowrap;
+        text-decoration: none;
+      }
+      .shared-mark {
+        width: 27px;
+        height: 27px;
+        border: 2px solid #00f3ff;
+        transform: rotate(45deg);
+        box-shadow: 0 0 15px rgba(0, 243, 255, 0.75);
+      }
+      .shared-menu {
+        display: flex;
+        gap: 4px;
+        margin: 0 auto;
+        padding: 4px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 7px;
+        background: rgba(255, 255, 255, 0.035);
+        font-family: Inter, sans-serif;
+      }
+      .shared-menu a {
+        position: relative;
+        padding: 8px 13px;
+        border-radius: 4px;
+        color: #95a3bb;
+        font-size: 0.82rem;
+        text-decoration: none;
+      }
+      .shared-menu a:hover,
+      .shared-menu a.active {
+        color: #f3f8ff;
+        background: rgba(0, 243, 255, 0.1);
+        text-shadow: 0 0 12px #00f3ff;
+      }
+      .shared-menu a.active::after {
+        position: absolute;
+        right: 13px;
+        bottom: 3px;
+        left: 13px;
+        height: 1px;
+        background: #00f3ff;
+        box-shadow: 0 0 8px #00f3ff;
+        content: "";
+      }
+      @media (max-width: 720px) {
+        .shared-nav {
+          width: calc(100% - 32px);
+          min-height: 64px;
+          padding: 0 10px;
         }
+        .shared-brand {
+          gap: 8px;
+          font-size: 0.63rem;
+          letter-spacing: 0.07em;
+        }
+        .shared-mark {
+          width: 20px;
+          height: 20px;
+        }
+        .shared-menu {
+          display: none;
+        }
+      }
 
+      body {
+        font-family: "Segoe UI", sans-serif;
+        margin: 0;
+        background:
+          radial-gradient(circle at top left, rgba(59, 130, 246, 0.18), transparent 26%), radial-gradient(circle at bottom right, rgba(225, 29, 72, 0.08), transparent 28%), linear-gradient(135deg, var(--bg1), var(--bg2) 48%, #eef2ff);
+        color: var(--dark);
+      }
+
+      .container {
+        max-width: 1150px;
+        margin: 52px auto;
+        padding: 24px;
+      }
+
+      .header {
+        text-align: center;
+        margin-bottom: 34px;
+      }
+
+      .badge {
+        display: inline-block;
+        background: linear-gradient(135deg, #dbeafe, #eff6ff);
+        color: var(--primary-dark);
+        padding: 9px 18px;
+        border-radius: 999px;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        border: 1px solid rgba(59, 130, 246, 0.12);
+        box-shadow: 0 12px 24px rgba(29, 78, 216, 0.07);
+      }
+
+      .header h1 {
+        margin: 18px 0 10px;
+        color: var(--dark);
+        font-size: clamp(2.4rem, 6vw, 3.5rem);
+        letter-spacing: 0;
+        line-height: 1.1;
+      }
+
+      .header p {
+        color: var(--muted);
+        margin: 0 auto;
+        max-width: 760px;
+        font-size: 1.02rem;
+        line-height: 1.75;
+      }
+
+      .content {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 26px;
+        align-items: stretch;
+      }
+
+      .card,
+      .map-box {
+        background: rgba(255, 255, 255, 0.94);
+        border: 1px solid var(--line);
+        border-radius: 26px;
+        box-shadow: 0 18px 42px var(--shadow);
+        backdrop-filter: blur(4px);
+      }
+
+      .card {
+        padding: 30px 28px;
+      }
+
+      .card h2,
+      .map-header h2 {
+        margin: 0 0 22px;
+        color: var(--primary-dark);
+        font-size: 1.55rem;
+        letter-spacing: 0;
+      }
+
+      .info-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .info-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 14px;
+        margin: 18px 0;
+        padding: 16px 16px;
+        border-radius: 18px;
+        background: linear-gradient(180deg, #f8fafc, #f1f5f9);
+        border-left: 5px solid var(--primary);
+        line-height: 1.6;
+        font-size: 1rem;
+        overflow-wrap: anywhere;
+        transition:
+          transform 0.22s ease,
+          box-shadow 0.22s ease,
+          border-color 0.22s ease;
+      }
+
+      .info-list li:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 22px rgba(37, 99, 235, 0.09);
+        border-left-color: var(--pink);
+      }
+
+      .icon {
+        width: 48px;
+        height: 48px;
+        border-radius: 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #dbeafe, #bfdbfe);
+        color: var(--primary);
+        font-weight: 700;
+        flex-shrink: 0;
+        font-size: 1.2rem;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.8);
+      }
+
+      .label {
+        display: block;
+        font-weight: 700;
+        color: var(--dark);
+        margin-bottom: 4px;
+      }
+
+      .link {
+        color: var(--pink);
+        text-decoration: none;
+        font-weight: 700;
+        transition: opacity 0.2s ease;
+      }
+
+      .link:hover {
+        opacity: 0.85;
+        text-decoration: underline;
+      }
+
+      .map-box {
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .map-header {
+        padding: 22px 24px 10px;
+      }
+
+      .map-box p {
+        padding: 0 24px 18px;
+        margin: 0;
+        color: var(--muted);
+        line-height: 1.7;
+      }
+
+      .map-btn {
+        display: inline-block;
+        margin: 0 24px 18px;
+        padding: 10px 16px;
+        border-radius: 999px;
+        background: linear-gradient(135deg, var(--primary), #2563eb);
+        color: #fff;
+        text-decoration: none;
+        font-weight: 700;
+        width: fit-content;
+        box-shadow: 0 12px 22px rgba(37, 99, 235, 0.18);
+        transition:
+          transform 0.2s ease,
+          opacity 0.2s ease;
+      }
+
+      .map-btn:hover {
+        transform: translateY(-1px);
+        opacity: 0.95;
+      }
+
+      .map-box iframe {
+        width: 100%;
+        min-height: 300px;
+        border: 0;
+        display: block;
+      }
+
+      a:focus-visible {
+        outline: 3px solid var(--pink);
+        outline-offset: 3px;
+      }
+
+      @media (max-width: 768px) {
         .container {
-            max-width: 1150px;
-            margin: 52px auto;
-            padding: 24px;
-        }
-
-        .header {
-            text-align: center;
-            margin-bottom: 34px;
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #dbeafe, #eff6ff);
-            color: var(--primary-dark);
-            padding: 9px 18px;
-            border-radius: 999px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            letter-spacing: 1px;
-            text-transform: uppercase;
-            border: 1px solid rgba(59, 130, 246, 0.12);
-            box-shadow: 0 12px 24px rgba(29, 78, 216, 0.07);
-        }
-
-        .header h1 {
-            margin: 18px 0 10px;
-            color: var(--dark);
-            font-size: clamp(2.4rem, 6vw, 3.5rem);
-            letter-spacing: 0;
-            line-height: 1.1;
-        }
-
-        .header p {
-            color: var(--muted);
-            margin: 0 auto;
-            max-width: 760px;
-            font-size: 1.02rem;
-            line-height: 1.75;
+          padding: 18px;
         }
 
         .content {
-            display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 26px;
-            align-items: stretch;
+          grid-template-columns: 1fr;
         }
 
         .card,
         .map-box {
-            background: rgba(255, 255, 255, 0.94);
-            border: 1px solid var(--line);
-            border-radius: 26px;
-            box-shadow: 0 18px 42px var(--shadow);
-            backdrop-filter: blur(4px);
+          border-radius: 22px;
         }
 
         .card {
-            padding: 30px 28px;
-        }
-
-        .card h2,
-        .map-header h2 {
-            margin: 0 0 22px;
-            color: var(--primary-dark);
-            font-size: 1.55rem;
-            letter-spacing: 0;
-        }
-
-        .info-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
+          padding: 22px 18px;
         }
 
         .info-list li {
-            display: flex;
-            align-items: flex-start;
-            gap: 14px;
-            margin: 18px 0;
-            padding: 16px 16px;
-            border-radius: 18px;
-            background: linear-gradient(180deg, #f8fafc, #f1f5f9);
-            border-left: 5px solid var(--primary);
-            line-height: 1.6;
-            font-size: 1rem;
-            overflow-wrap: anywhere;
-            transition: transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease;
+          padding: 14px 12px;
         }
-
-        .info-list li:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 22px rgba(37, 99, 235, 0.09);
-            border-left-color: var(--pink);
-        }
-
-        .icon {
-            width: 48px;
-            height: 48px;
-            border-radius: 16px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: linear-gradient(135deg, #dbeafe, #bfdbfe);
-            color: var(--primary);
-            font-weight: 700;
-            flex-shrink: 0;
-            font-size: 1.2rem;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.8);
-        }
-
-        .label {
-            display: block;
-            font-weight: 700;
-            color: var(--dark);
-            margin-bottom: 4px;
-        }
-
-        .link {
-            color: var(--pink);
-            text-decoration: none;
-            font-weight: 700;
-            transition: opacity 0.2s ease;
-        }
-
-        .link:hover {
-            opacity: 0.85;
-            text-decoration: underline;
-        }
-
-        .map-box {
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .map-header {
-            padding: 22px 24px 10px;
-        }
-
-        .map-box p {
-            padding: 0 24px 18px;
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .map-btn {
-            display: inline-block;
-            margin: 0 24px 18px;
-            padding: 10px 16px;
-            border-radius: 999px;
-            background: linear-gradient(135deg, var(--primary), #2563eb);
-            color: #fff;
-            text-decoration: none;
-            font-weight: 700;
-            width: fit-content;
-            box-shadow: 0 12px 22px rgba(37, 99, 235, 0.18);
-            transition: transform 0.2s ease, opacity 0.2s ease;
-        }
-
-        .map-btn:hover {
-            transform: translateY(-1px);
-            opacity: 0.95;
-        }
-
-        .map-box iframe {
-            width: 100%;
-            min-height: 300px;
-            border: 0;
-            display: block;
-        }
-
-        a:focus-visible {
-            outline: 3px solid var(--pink);
-            outline-offset: 3px;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 18px;
-            }
-
-            .content {
-                grid-template-columns: 1fr;
-            }
-
-            .card,
-            .map-box {
-                border-radius: 22px;
-            }
-
-            .card {
-                padding: 22px 18px;
-            }
-
-            .info-list li {
-                padding: 14px 12px;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
+    <nav class="shared-nav" aria-label="Navigasi utama">
+      <a class="shared-brand" href="index.html"><span class="shared-mark" aria-hidden="true"></span>XI RPL // KELOMPOK 08</a>
+      <div class="shared-menu"><a href="index.html">Home</a><a href="profil.html">Profil</a><a href="anggota.html">Anggota</a><a class="active" href="kontak.html">Kontak</a></div>
+    </nav>
     <div class="container">
-        <div class="header">
-            <span class="badge">XI RPL 2</span>
-            <h1>Kontak</h1>
-            <p>Hubungi kami untuk mendapatkan informasi tentang kelas dan kegiatan kami di sekolah.</p>
+      <div class="header">
+        <span class="badge">XI RPL 2</span>
+        <h1>Kontak</h1>
+        <p>Hubungi kami untuk mendapatkan informasi tentang kelas dan kegiatan kami di sekolah.</p>
+      </div>
+
+      <div class="content">
+        <div class="card">
+          <h2>Kontak Kelas Kami</h2>
+          <ul class="info-list">
+            <li>
+              <div class="icon">@</div>
+              <div>
+                <span class="label">Email</span>
+                <a class="link" href="mailto:xirpl2@gmail.com">xirpl2@gmail.com</a>
+              </div>
+            </li>
+            <li>
+              <div class="icon">◎</div>
+              <div>
+                <span class="label">Instagram</span>
+                <a class="link" href="https://instagram.com/laraveleloquent_11rpl2" target="_blank" rel="noopener noreferrer">XI RPL 2</a>
+              </div>
+            </li>
+            <li>
+              <div class="icon">⌂</div>
+              <div>
+                <span class="label">Alamat Sekolah</span>
+                Jl. Cimanuk No.309A, Sukagalih, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151, Indonesia
+              </div>
+            </li>
+          </ul>
         </div>
 
-        <div class="content">
-            <div class="card">
-                <h2>Kontak Kelas Kami</h2>
-                <ul class="info-list">
-                    <li>
-                        <div class="icon">@</div>
-                        <div>
-                            <span class="label">Email</span>
-                            <a class="link" href="mailto:xirpl2@gmail.com">xirpl2@gmail.com</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon">◎</div>
-                        <div>
-                            <span class="label">Instagram</span>
-                            <a class="link" href="https://instagram.com/laraveleloquent_11rpl2" target="_blank" rel="noopener noreferrer">XI RPL 2</a>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="icon">⌂</div>
-                        <div>
-                            <span class="label">Alamat Sekolah</span>
-                            Jl. Cimanuk No.309A, Sukagalih, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151, Indonesia
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <div class="map-box">
-                <div class="map-header">
-                    <h2>Lokasi Sekolah</h2>
-                </div>
-                <p>Jl. Cimanuk No.309A, Sukagalih, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151, Indonesia</p>
-                <a class="map-btn" href="https://maps.google.com/?q=Jl.%20Cimanuk%20No.309A%20Garut" target="_blank" rel="noopener noreferrer">Buka Google Maps</a>
-                <iframe src="https://www.google.com/maps?q=Jl.%20Cimanuk%20No.309A%20Garut&output=embed" allowfullscreen loading="lazy"></iframe>
-            </div>
+        <div class="map-box">
+          <div class="map-header">
+            <h2>Lokasi Sekolah</h2>
+          </div>
+          <p>Jl. Cimanuk No.309A, Sukagalih, Kec. Tarogong Kidul, Kabupaten Garut, Jawa Barat 44151, Indonesia</p>
+          <a class="map-btn" href="https://maps.google.com/?q=Jl.%20Cimanuk%20No.309A%20Garut" target="_blank" rel="noopener noreferrer">Buka Google Maps</a>
+          <iframe src="https://www.google.com/maps?q=Jl.%20Cimanuk%20No.309A%20Garut&output=embed" allowfullscreen loading="lazy"></iframe>
         </div>
+      </div>
     </div>
-</body>
+  </body>
 </html>
