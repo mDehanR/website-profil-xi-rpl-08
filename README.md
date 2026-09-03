@@ -1,15 +1,15 @@
-﻿# Website Profil XI RPL
+# Website Profil XI RPL
 
 Website ini merupakan proyek pembelajaran kolaborasi Git dan GitHub.
 
 ## Anggota Tim
 
 1. Dehan - Project Manager
-2. Rafly - Developer Profil
-3. Regina - Developer Anggota
-4. Andri - Developer Kontak
+2. Rafly - Developer
+3. Regina - Developer
+4. Andri - Developer
 
-## I. PERTANYAAN CHALLENGE 2 (CLONE REPOSITORY)
+## I. Challenge 2: Clone Repository
 
 **Pertanyaan:** Apa arti hasil `git status`?
 
